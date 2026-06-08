@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>before you swim away 🐠</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a12;
+  --ink:#f4f1ea;
+  --hot:#ff3d7f;
+  --lime:#c6ff4a;
+  --cyan:#34e7e4;
+  --violet:#8b6cff;
+  --card:#14141f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Bricolage Grotesque',sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,61,127,.18), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(52,231,228,.15), transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(139,108,255,.18), transparent 45%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;mix-blend-mode:overlay;
+}
+.wrap{position:relative;z-index:2;max-width:680px;margin:0 auto;padding:6vh 24px 12vh}
+
+/* HERO */
+.hero{text-align:center;padding:8vh 0 6vh}
+.eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:18px;
+  opacity:0;animation:fade .6s .1s forwards;
+}
+.fish{font-size:3.5rem;display:inline-block;animation:swim 3s ease-in-out infinite;opacity:0;animation:fade .6s .2s forwards, swim 3s ease-in-out infinite .8s}
+h1{
+  font-size:clamp(2.4rem,8vw,4.5rem);
+  font-weight:800;line-height:.98;letter-spacing:-.03em;
+  margin:14px 0 22px;
+  background:linear-gradient(110deg,var(--hot),var(--violet),var(--cyan));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  opacity:0;animation:fade .7s .3s forwards;
+}
+.sub{font-size:1.05rem;color:#b9b4c9;max-width:440px;margin:0 auto;opacity:0;animation:fade .7s .45s forwards}
+
+/* COUNTER */
+.counter{
+  margin:38px auto;max-width:420px;
+  background:var(--card);border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;padding:26px;
+  opacity:0;animation:fade .7s .55s forwards;
+}
+.counter .label{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#7a7690}
+.counter .num{font-size:3.5rem;font-weight:800;color:var(--hot);line-height:1;margin:6px 0}
+.counter button{
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.95rem;
+  background:var(--lime);color:#0a0a12;border:none;border-radius:999px;
+  padding:11px 22px;cursor:pointer;transition:transform .15s,box-shadow .15s;
+  box-shadow:0 0 0 rgba(198,255,74,0);
+}
+.counter button:hover{transform:translateY(-2px) rotate(-1.5deg);box-shadow:0 8px 24px rgba(198,255,74,.3)}
+.counter .quip{margin-top:14px;font-size:.9rem;color:#b9b4c9;min-height:1.2em}
+
+/* CARDS */
+.intro{font-family:'Space Mono',monospace;text-align:center;color:var(--lime);font-size:.85rem;letter-spacing:.15em;margin:60px 0 26px;text-transform:uppercase}
+.card{
+  background:var(--card);border:1px solid rgba(255,255,255,.07);
+  border-radius:22px;padding:28px 26px;margin-bottom:18px;
+  position:relative;overflow:hidden;cursor:default;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s;
+  opacity:0;transform:translateY(24px);
+}
+.card.in{opacity:1;transform:translateY(0)}
+.card:hover{transform:translateY(-4px) scale(1.01);border-color:var(--accent)}
+.card .tag{position:absolute;top:0;left:0;width:6px;height:100%;background:var(--accent)}
+.card .pill{
+  display:inline-block;font-family:'Space Mono',monospace;font-size:.68rem;
+  letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;border-radius:999px;
+  background:rgba(255,255,255,.06);color:var(--accent);margin-bottom:14px;
+}
+.card h2{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.card p{color:#c3bfd1;line-height:1.55;font-size:1.02rem}
+.card .prio{display:inline-block;margin-top:14px;font-weight:700;color:var(--hot);font-size:.9rem;animation:pulse 1.6s infinite}
+.c1{--accent:var(--cyan)} .c2{--accent:var(--violet)} .c3{--accent:var(--hot)}
+
+/* CTA */
+.cta{text-align:center;margin-top:54px;opacity:0;transform:translateY(24px)}
+.cta.in{opacity:1;transform:translateY(0);transition:all .6s}
+.cta p{font-size:1.3rem;font-weight:600;margin-bottom:8px}
+.cta .mono{font-family:'Space Mono',monospace;font-size:.8rem;color:#7a7690;letter-spacing:.1em}
+.flight{font-size:2rem;display:inline-block;animation:fly 4s ease-in-out infinite}
+
+@keyframes fade{to{opacity:1}}
+@keyframes swim{0%,100%{transform:translateX(-8px) rotate(-4deg)}50%{transform:translateX(8px) rotate(4deg)}}
+@keyframes fly{0%{transform:translateX(-20px) translateY(4px)}50%{transform:translateX(20px) translateY(-4px)}100%{transform:translateX(-20px) translateY(4px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.bubble{position:fixed;bottom:-30px;border-radius:50%;background:rgba(52,231,228,.18);pointer-events:none;z-index:1;animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-110vh);opacity:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">incoming transmission</div>
+    <span class="fish">🐠</span>
+    <h1>you've rescheduled<br>our 1:1 so many times<br>i made you a website</h1>
+    <p class="sub">hi! quick thing before you swim away. anyway — 3 things, and they're fast. 👇</p>
+  </div>
+
+  <div class="counter">
+    <div class="label">official reschedule counter</div>
+    <div class="num" id="num">∞</div>
+    <button id="btn">reschedule again →</button>
+    <div class="quip" id="quip">go ahead. i dare you.</div>
+  </div>
+
+  <div class="intro">// the agenda</div>
+
+  <div class="card c1">
+    <span class="tag"></span>
+    <span class="pill">favor · priority</span>
+    <h2>🤖 Claude Max</h2>
+    <p>Pro keeps running out on me and I need to stay on top of the latest tech. Can I pleaseeeee get the UiPath Max plan licence? Promise to put it to good use — TechShares & Initiatives included 🙌</p>
+    <span class="prio">⚡ this one's priority pls 🙏</span>
+  </div>
+
+  <div class="card c2">
+    <span class="tag"></span>
+    <span class="pill">my location</span>
+    <h2>📍 FYI: I'm in Jakarta rn</h2>
+    <p>Need 5 mins to plan my itinerary. that's it. five.</p>
+  </div>
+
+  <div class="card c3">
+    <span class="tag"></span>
+    <span class="pill">the tea ☕</span>
+    <h2>👀 snapchat tea</h2>
+    <p>Next time you happen to have a converstion with Mehul, ask him about the real reason people use snapchat.</p>
+  </div>
+
+  <div class="cta">
+    <p>no more reschedules <span class="flight">✈️</span></p>
+    <p>catch me before I catch these flights</p>
+    <div class="mono" style="margin-top:14px">[ this site self-destructs after reschedule #5 💣 ]</div>
+  </div>
+</div>
+
+<script>
+// reschedule counter easter egg
+const quips = [
+  "bold move. respect.",
+  "dory would be proud 🐠",
+  "ok you're def dodging now 👀",
+  "my calendar is crying",
+  "FINE. but read the 3 things first 😤",
+  "🚨 self-destruct sequence initiated 🚨"
+];
+let count = 0;
+const btn = document.getElementById('btn');
+const num = document.getElementById('num');
+const quip = document.getElementById('quip');
+btn.addEventListener('click', ()=>{
+  count++;
+  num.textContent = count >= 5 ? "💣" : count;
+  quip.textContent = quips[Math.min(count-1, quips.length-1)];
+  document.body.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:200});
+  if(count>=5){ btn.textContent="no more reschedules 🙅"; btn.disabled=true; btn.style.opacity=.5; }
+});
+
+// scroll reveals
+const obs = new IntersectionObserver((e)=>{
+  e.forEach(x=>{ if(x.isIntersecting) x.target.classList.add('in'); });
+},{threshold:.2});
+document.querySelectorAll('.card,.cta').forEach((el,i)=>{ el.style.transitionDelay=(i*.08)+'s'; obs.observe(el); });
+
+// floating bubbles
+setInterval(()=>{
+  const b=document.createElement('div');b.className='bubble';
+  const s=8+Math.random()*22;
+  b.style.width=b.style.height=s+'px';
+  b.style.left=Math.random()*100+'vw';
+  b.style.animationDuration=(6+Math.random()*6)+'s';
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),12000);
+},700);
+</script>
+</body>
+</html>
